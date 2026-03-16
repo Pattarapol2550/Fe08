@@ -1,9 +1,14 @@
 import Image from "next/image"
 import getVenue from "@/libs/getVenue"
 
-export default async function VenuePage({params}:{params:{vid:string}}){
+export default async function VenuePage({
+  params
+}:{
+  params: Promise<{vid:string}>
+}){
 
-const venueDetail = await getVenue(params.vid)
+const { vid } = await params
+const venueDetail = await getVenue(vid)
 
 return(
 <main className="text-center p-5">
@@ -12,7 +17,7 @@ return(
  {venueDetail.data.name}
 </h1>
 
-<div className="flex flex-row  items-start gap-8">
+<div className="flex flex-row items-start gap-8">
 
 <Image
  src={venueDetail.data.picture}
